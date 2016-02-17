@@ -60,7 +60,7 @@ class FabricConfig
   def kit(name, &block)
     kit_config = FabricKitConfig.new(name)
     block.call(kit_config.info) if block
-    config.info_plist['Fabric']['Kits'] << kit_config.to_hash
+    @config.info_plist['Fabric']['Kits'] << kit_config.to_hash
   end
 
   def beta(&block)
