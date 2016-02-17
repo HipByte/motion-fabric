@@ -32,7 +32,7 @@ NOTE: If you already have a Fabric team with an API KEY and BUILD SECRET, skip t
     ```bash
     "${PODS_ROOT}/Fabric/run" {api_key} {build_secret}
     ```
-5. Configure your `Rakefile` with the Api Key and Build Secret:
+5. Configure your `Rakefile` with the API KEY and BUILD SECRET:
 
     ```ruby
     app.fabric do |config|
@@ -62,16 +62,26 @@ This file is called the `dSYM` file and is generated every time you build the ap
 
 By default `motion-fabric` does NOT upload any `dSYM` file.
 
-Usually, you only want crash reporting for your distribution builds:
+Usually, you only want crash reporting for your distribution and beta builds:
 
 ```ruby
-Fabric.with([Crashlytics.sharedInstance]) if RUBYMOTION_ENV == 'release'
+if RUBYMOTION_ENV == 'release' || CRASHLYTICS_BETA == true
+  Fabric.with([Crashlytics.sharedInstance]) 
+end
 ```
 
 To upload the `dSYM` automatically after `rake archive:distribution`, add the following to your `Rakefile`:
 
 ```ruby
 Rake::Task["archive:distribution"].enhance do
+  Rake::Task["fabric:dsym:device"].invoke
+end
+```
+
+To upload the `dSYM` automatically after `rake fabric:upload`, add the following to your `Rakefile`:
+
+```ruby
+Rake::Task["fabric:upload"].enhance do
   Rake::Task["fabric:dsym:device"].invoke
 end
 ```
