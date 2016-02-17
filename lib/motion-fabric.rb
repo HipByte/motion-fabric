@@ -82,8 +82,8 @@ end
 
 Motion::Project::App.setup do |app|
   app.pods do
-    pod 'Fabric'
-    pod 'Crashlytics'
+    pod 'Fabric', '~> 1.6'
+    pod 'Crashlytics', '~> 3.7'
   end
 end
 
