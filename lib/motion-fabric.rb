@@ -121,8 +121,14 @@ end
 
 namespace :fabric do
   task :setup do
-    fabric_run(App.config_without_setup.deploy_platform)
-    Rake::Task["fabric:dsym:simulator"].invoke
+    # Build for the simulator so we generate the data needed by the "run" tool
+    Rake::Task["build:simulator"].execute
+    # Execute the "run" tool so Fabric.app registers our app
+    Rake::Task["fabric:dsym:simulator"].execute
+    # Do not build again
+    ENV["skip_build"] = 'true'
+    # Run the app in the simulator so Fabric activates our app
+    Rake::Task["simulator"].execute
   end
 
   task :upload do
