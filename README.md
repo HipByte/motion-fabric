@@ -2,9 +2,9 @@
 
 Easily integrate [Fabric](https://fabric.io) in your [RubyMotion](http://www.rubymotion.com) application.
 
-[Fabric kits](https://fabric.io/kits) supported right now:
+Supported [Fabric kits](https://fabric.io/kits):
 
-- Crashlytics: Crash reporting
+- Crashlytics: Crash reporting.
 
 ## Installation
 

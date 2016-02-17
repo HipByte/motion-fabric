@@ -133,6 +133,10 @@ namespace :fabric do
     App.config.files << file
     Rake::Task["archive"].invoke
 
+    # Force a link of the executable on the next build by touching the project
+    # file since we dont want motion-fabric.rb to be included for a non-beta build.
+    FileUtils.touch App.config.project_file
+
     fabric_setup do |pods_root, api_key, build_secret|
       App.info "Fabric", "Uploading IPA"
       notes_path = File.join(Dir.tmpdir, 'fabric-notes.txt')
