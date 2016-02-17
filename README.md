@@ -70,6 +70,37 @@ To upload the `dSYM` automatically after `rake archive:distribution`, add the fo
 
 ```ruby
 Rake::Task["archive:distribution"].enhance do
-  Rake::Task["fabric:dsym:device"].execute
+  Rake::Task["fabric:dsym:device"].invoke
 end
 ```
+
+## Beta distribution
+
+Customize the configuration for your beta distribution. You should use this to
+configure your AdHoc provisioninig profile.
+
+```ruby
+app.fabric do |config|
+  config.beta do
+    app.identifier = "my_identifier"
+    app.codesign_certificate = "my_certificate"
+    app.provisioning_profile = "my_ad_hoc_provisioning_file"
+  end
+end
+```
+
+In your app code, you can check if the app is a beta build:
+
+```ruby
+if CRASHLYTICS_BETA == true
+  puts 'This code will only run in builds distributed via Crashlytics'
+end
+```
+
+Upload your build:
+
+```bash
+$ rake fabric:upload notes="my release notes"
+```
+
+Go to your Fabric dashboard and check that your build was successfully uploaded.

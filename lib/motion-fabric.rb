@@ -14,14 +14,14 @@ class FabricKitConfig
 
   def to_hash
     {
-      'KitInfo' => info
+      'KitInfo' => info,
       'KitName' => name
     }
   end
 end
 
 class FabricConfig
-  attr_accessor :api_key, :build_secret, :kits
+  attr_accessor :api_key, :build_secret, :kits, :beta_block
 
   def api_key=(api_key)
     @config.info_plist['Fabric']['APIKey'] = api_key
@@ -38,6 +38,10 @@ class FabricConfig
     kit_config = FabricKitConfig.new(name)
     block.call(kit_config.info) if block
     config.info_plist['Fabric']['Kits'] << kit_config.to_hash
+  end
+
+  def beta(&block)
+    @beta_block = block if block
   end
 end
 
@@ -95,13 +99,22 @@ end
 namespace :fabric do
   task :setup do
     fabric_run(App.config_without_setup.deploy_platform)
-    Rake::Task["fabric:dsym:simulator"].execute
+    Rake::Task["fabric:dsym:simulator"].invoke
   end
 
   task :upload do
+    App.config.fabric.beta_block.call if App.config.fabric.beta_block
+
+    file = File.join(Dir.tmpdir, 'motion-fabric.rb')
+    open(file, 'w') { |io| io.write 'CRASHLYTICS_BETA = true' }
+    App.config.files << file
+    Rake::Task["archive"].invoke
+
     fabric_setup do |pods_root, api_key, build_secret|
       App.info "Fabric", "Uploading IPA"
-      system("#{pods_root}/Crashlytics/submit #{api_key} #{build_secret} -ipaPath \"#{App.config.archive}\"")
+      notes_path = File.join(Dir.tmpdir, 'fabric-notes.txt')
+      open(notes_path, 'w') { |io| io.write ENV['notes'] }
+      system(%Q{#{pods_root}/Crashlytics/submit #{api_key} #{build_secret} -ipaPath "#{App.config.archive}" -notesPath "#{notes_path}"})
     end
   end
 
