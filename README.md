@@ -22,10 +22,12 @@ To install the required Pods execute:
     
 ## Configuration
 
+NOTE: If you already have a Fabric team with an API KEY and BUILD SECRET, skip to step 5.
+
 1. Sign up for a Fabric account [here](https://fabric.io/sign_up)
 2. You will receive a confirmation email. Enter your team's name and download the Xcode plugin (Dont worry, this is a separate app called Fabric.app. You wont need to open Xcode).
 3. Open Fabric.app and log in with your account (Important! You must keep Fabric.app open and logged in throughout the configuration process).
-4. Go to [this page](https://fabric.io/kits/ios/crashlytics/install) and retrieve your Api Key and Build Secret for your organization in the step two. They will appear in a box in this form:
+4. Go to [this page](https://fabric.io/kits/ios/crashlytics/install) and retrieve your API KEY and BUILD SECRET for your organization in the step two. They will appear in a box in this form:
 
     ```bash
     "${PODS_ROOT}/Fabric/run" {api_key} {build_secret}
