@@ -70,17 +70,25 @@ if RUBYMOTION_ENV == 'release' || CRASHLYTICS_BETA == true
 end
 ```
 
-To upload the `dSYM` automatically after `rake archive:distribution`, add the following to your `Rakefile`:
+You can automate the upload of the dSYM file after you run certain rake commands:
 
 ```ruby
+# Upload the dSYM after creating a release build
 Rake::Task["archive:distribution"].enhance do
   Rake::Task["fabric:dsym:device"].invoke
 end
-```
 
-To upload the `dSYM` automatically after `rake fabric:upload`, add the following to your `Rakefile`:
+# Upload the dSYM after every simulator build
+Rake::Task["build:simulator"].enhance do
+  Rake::Task["fabric:dsym:simulator"].invoke
+end
 
-```ruby
+# Upload the dSYM after every device build
+Rake::Task["build:device"].enhance do
+  Rake::Task["fabric:dsym:device"].invoke
+end
+
+# Upload the dSYM after uploading a beta build to Crashlytics
 Rake::Task["fabric:upload"].enhance do
   Rake::Task["fabric:dsym:device"].invoke
 end

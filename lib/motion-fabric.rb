@@ -120,6 +120,7 @@ def fabric_run(platform)
 end
 
 namespace :fabric do
+  desc 'Create a new app in Fabric'
   task :setup do
     # Build for the simulator so we generate the data needed by the "run" tool
     Rake::Task["build:simulator"].execute
@@ -131,6 +132,7 @@ namespace :fabric do
     Rake::Task["simulator"].execute
   end
 
+  desc 'Upload a build to Crashlytics'
   task :upload do
     App.config.fabric.beta_block.call if App.config.fabric.beta_block
 
@@ -152,10 +154,12 @@ namespace :fabric do
   end
 
   namespace :dsym do
+    desc 'Upload the dSYM file for the device executable to Crashlytics'
     task :device do
       fabric_run(App.config_without_setup.deploy_platform)
     end
 
+    desc 'Upload the dSYM file for the simulator executable to Crashlytics'
     task :simulator do
       fabric_run(App.config_without_setup.local_platform)
     end
