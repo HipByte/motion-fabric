@@ -62,7 +62,8 @@ This file is called the `dSYM` file and is generated every time you build the ap
 
 By default `motion-fabric` does NOT upload any `dSYM` file.
 
-Usually, you only want crash reporting for your distribution and beta builds:
+Usually, you only want crash reporting for your distribution and Crashlytics 
+Beta builds:
 
 ```ruby
 if RUBYMOTION_ENV == 'release' || CRASHLYTICS_BETA == true
@@ -96,8 +97,11 @@ end
 
 ## Beta distribution
 
-Customize the configuration for your beta distribution. You should use this to
-configure your AdHoc provisioninig profile.
+Fabric offers another service under the name Crashlytics Beta which helps you
+distribute beta builds of your app to your testers.
+
+You can customize the configuration for your beta distribution. You should use
+this to configure your AdHoc provisioninig profile.
 
 ```ruby
 app.fabric do |config|
@@ -109,18 +113,21 @@ app.fabric do |config|
 end
 ```
 
-In your app code, you can check if the app is a beta build:
+The only difference between your development builds and your Crashlytics Beta
+builds is the presence of the `CRASHLYTICS_BETA` constant which is set to `true`
+for beta builds:
 
 ```ruby
 if CRASHLYTICS_BETA == true
-  puts 'This code will only run in builds distributed via Crashlytics'
+  puts 'This code will only run in builds distributed via Crashlytics Beta'
 end
 ```
 
-Upload your build:
+To create a beta build and upload it to Crashlytics Beta:
 
 ```bash
 $ rake fabric:upload notes="my release notes"
 ```
 
-Go to your Fabric dashboard and check that your build was successfully uploaded.
+Go to the Crashlytics Beta section of your Fabric dashboard and check that your
+build was successfully uploaded.
