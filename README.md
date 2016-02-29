@@ -114,11 +114,11 @@ end
 ```
 
 The only difference between your development builds and your Crashlytics Beta
-builds is the presence of the `CRASHLYTICS_BETA` constant which is set to `true`
+builds is the presence of the `CRASHLYTICS_BETA` constant which is only present
 for beta builds:
 
 ```ruby
-if CRASHLYTICS_BETA == true
+if Module.const_defined?(:CRASHLYTICS_BETA)
   puts 'This code will only run in builds distributed via Crashlytics Beta'
 end
 ```
