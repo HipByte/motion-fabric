@@ -149,7 +149,15 @@ namespace :fabric do
       App.info "Fabric", "Uploading IPA"
       notes_path = File.join(Dir.tmpdir, 'fabric-notes.txt')
       open(notes_path, 'w') { |io| io.write ENV['notes'] }
-      system(%Q{#{pods_root}/Crashlytics/submit #{api_key} #{build_secret} -ipaPath "#{App.config.archive}" -notesPath "#{notes_path}"})
+
+      args = ""
+      args << " -ipaPath \"#{App.config.archive}\""
+      args << " -notesPath \"#{notes_path}\""
+      args << " -emails \"#{ENV['emails']}\"" if ENV['emails']
+      args << " -groupAliases \"#{ENV['groups']}\"" if ENV['groups']
+      args << " -notifications \"#{ENV['notifications']}\"" if ENV['notifications']
+
+      system(%Q{#{pods_root}/Crashlytics/submit #{api_key} #{build_secret} #{args}})
     end
   end
 

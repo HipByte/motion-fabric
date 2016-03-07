@@ -126,8 +126,10 @@ end
 To create a beta build and upload it to Crashlytics Beta:
 
 ```bash
-$ rake fabric:upload notes="my release notes"
+$ rake fabric:upload notes="my release notes" emails="foo@example.com,bar@example.com" groups="group1,group2" notifications=YES
 ```
+
+The notes, emails, groups and notifications options are optional.
 
 Go to the Crashlytics Beta section of your Fabric dashboard and check that your
 build was successfully uploaded.
