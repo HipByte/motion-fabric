@@ -88,7 +88,7 @@ Motion::Project::App.setup do |app|
 end
 
 def fabric_setup(&block)
-  pods_root = Motion::Project::CocoaPods::PODS_ROOT
+  pods_root = File.absolute_path(Motion::Project::CocoaPods::PODS_ROOT)
   api_key = App.config.fabric.api_key
   build_secret = App.config.fabric.build_secret
 
