@@ -136,6 +136,9 @@ namespace :fabric do
   task :upload do
     App.config.fabric.beta_block.call if App.config.fabric.beta_block
 
+    # Crashlytics builds do not need this entitlement
+    App.config.entitlements['get-task-allow'] = false
+
     file = File.join(Dir.tmpdir, 'motion-fabric.rb')
     open(file, 'w') { |io| io.write 'CRASHLYTICS_BETA = true' }
     App.config.files << file
