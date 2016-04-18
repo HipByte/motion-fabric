@@ -160,7 +160,7 @@ namespace :fabric do
       args << " -groupAliases \"#{ENV['groups']}\"" if ENV['groups']
       args << " -notifications \"#{ENV['notifications']}\"" if ENV['notifications']
 
-      system(%Q{#{pods_root}/Crashlytics/submit #{api_key} #{build_secret} #{args}})
+      sh %Q{#{pods_root}/Crashlytics/submit #{api_key} #{build_secret} #{args}}
     end
   end
 
