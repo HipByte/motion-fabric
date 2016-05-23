@@ -113,6 +113,9 @@ app.fabric do |config|
 end
 ```
 
+NOTE: Make sure to use an Ad-Hoc provisioning profile and not a developent one.
+You can create an Ad-Hoc provisioning profile in the [provisioning portal](https://developer.apple.com/account/ios/certificate/)
+
 The only difference between your development builds and your Crashlytics Beta
 builds is the presence of the `CRASHLYTICS_BETA` constant which is only present
 for beta builds:
@@ -130,6 +133,8 @@ $ rake fabric:upload notes="my release notes" emails="foo@example.com,bar@exampl
 ```
 
 The notes, emails, groups and notifications options are optional.
+
+NOTE: Be careful to include the group *alias* and not the group *name* in the groups option. You can find the group alias in the Fabric dashboard.
 
 Go to the Crashlytics Beta section of your Fabric dashboard and check that your
 build was successfully uploaded.
