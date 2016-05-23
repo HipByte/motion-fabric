@@ -1,0 +1,39 @@
+# -*- coding: utf-8 -*-
+$:.unshift("/Library/RubyMotion/lib")
+require 'motion/project/template/ios'
+
+begin
+  require 'bundler'
+  Bundler.require
+rescue LoadError
+end
+
+Motion::Project::App.setup do |app|
+  # Use `rake config' to see complete project settings.
+  app.name = 'sample-app'
+
+  app.fabric do |config|
+    config.api_key = "api_key"
+    config.build_secret = "build_secret"
+    config.kit 'Crashlytics'
+    config.kit 'TwitterKit' do |info|
+      info[:consumerKey] = 'MyKey'
+      info[:consumerSecret] = 'MySecret'
+    end
+  end
+
+  # FIXME: TwitterCore and TwitterKit are static ios frameworks, but the .o 
+  # files inside the archives include the "-framework Fabric" flag in their
+  # auto link section information. The linker will look for that framework and
+  # fail. As a workaround we include the Fabric framework path as a framework
+  # search path. The following warning will be printed, but everything will 
+  # work fine at runtime:
+  # ld: warning: Auto-Linking supplied '/Users/mark/src/motion-fabric/sample_app/vendor/Pods/Fabric/iOS/Fabric.framework/Fabric', framework linker option at /Users/mark/src/motion-fabric/sample_app/vendor/Pods/Fabric/iOS/Fabric.framework/Fabric is not a dylib
+  # We will be able to fix this when motion-cocoapods supports the 
+  # "use_frameworks!" option from Cocoapods.
+  app.framework_search_paths << './vendor/Pods/Fabric/iOS'
+
+  app.pods do 
+    pod 'TwitterKit'
+  end
+end
