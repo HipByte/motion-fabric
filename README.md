@@ -4,7 +4,8 @@ Easily integrate [Fabric](https://fabric.io) in your [RubyMotion](http://www.rub
 
 Supported [Fabric kits](https://fabric.io/kits):
 
-- Crashlytics: Crash reporting.
+- [Crashlytics](https://fabric.io/kits/ios/crashlytics): Crash reporting and beta distribution.
+- [TwitterKit](https://fabric.io/kits/ios/twitterkit): Provides wrappers for accessing the Twitter REST API and rich Twitter UI components for your app.
 
 ## Installation
 
@@ -138,3 +139,29 @@ NOTE: Be careful to include the group *alias* and not the group *name* in the gr
 
 Go to the Crashlytics Beta section of your Fabric dashboard and check that your
 build was successfully uploaded.
+
+# TwitterKit
+
+Add the following to your `Rakefile`:
+
+```ruby
+app.fabric do |config|
+  config.kit 'TwitterKit' do |info|
+    info[:consumerKey] = 'MyKey'
+    info[:consumerSecret] = 'MySecret'
+  end
+end
+
+app.pods do 
+  pod 'TwitterKit'
+end
+
+# This is a temporary workaround for using the TwitterKit Pod
+app.framework_search_paths << './vendor/Pods/Fabric/iOS'
+```
+
+And the following to your application code:
+
+```ruby
+Fabric.with([Twitter])
+```
