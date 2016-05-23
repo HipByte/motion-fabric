@@ -82,6 +82,8 @@ module Motion::Project
   end
 end
 
+require 'motion-cocoapods'
+
 Motion::Project::App.setup do |app|
   app.pods do
     pod 'Fabric', '~> 1.6'

@@ -12,5 +12,5 @@ Gem::Specification.new do |spec|
   spec.license     = 'Proprietary'
   spec.files       = Dir.glob('lib/**/*.rb')
 
-  spec.add_dependency 'motion-cocoapods', '~> 1.7'
+  spec.add_runtime_dependency 'motion-cocoapods', '~> 1.8'
 end
