@@ -4,8 +4,21 @@ Easily integrate [Fabric](https://fabric.io) in your [RubyMotion](http://www.rub
 
 Supported [Fabric kits](https://fabric.io/kits):
 
-- [Crashlytics](https://fabric.io/kits/ios/crashlytics): Crash reporting and beta distribution.
-- [TwitterKit](https://fabric.io/kits/ios/twitterkit): Provides wrappers for accessing the Twitter REST API and rich Twitter UI components for your app.
+Kit Name | Description | Supported?
+---------|-------------|-----------
+[Amazon Cognito Sync](https://fabric.io/kits/ios/amazon) | Develop apps quickly. Scale and run reliably. | ✅
+[Answers](https://fabric.io/kits/ios/answers) | Finally, mobile app analytics you don't need to analyze. | ✅
+[Appsee](https://fabric.io/kits/ios/appsee) | Analyze user behavior with videos of sessions, heatmaps & analytics. | ✅
+[Crashlytics](https://fabric.io/kits/ios/crashlytics) | The most powerful, yet lightest weight crash reporting solution. | ✅
+[Digits](https://fabric.io/kits/ios/digits) | No more passwords. Powerful login that grows your mobile graph. | ✅
+[GameAnalytics](https://fabric.io/kits/ios/gameanalytics) | To build great games, you need to understand player behavior. | ✅
+[Mapbox](https://fabric.io/kits/ios/mapbox) | Build the map your application deserves. | ❌
+[MoPub](https://fabric.io/kits/ios/mopub) | Drive More Mobile Ad Revenue. | ✅
+[Nuance](https://fabric.io/kits/ios/nuance) | Develop natural, engaging experiences with speech | ❌
+[Optimizely](https://fabric.io/kits/ios/optimizely) | Fast, powerful A/B testing for mobile apps. | ✅
+[PubNub](https://fabric.io/kits/ios/pubnub) | Realtime apps made simple. | ✅
+[Stripe](https://fabric.io/kits/ios/stripe) | Seamlessly integrated mobile payments. | ✅
+[Twitter](https://fabric.io/kits/ios/twitterkit) | The easiest way to bring Twitter content into your app. | ✅
 
 ## Installation
 
@@ -26,13 +39,17 @@ To install the required Pods execute:
 NOTE: If you already have a Fabric team with an API KEY and BUILD SECRET, skip to step 5.
 
 1. Sign up for a Fabric account [here](https://fabric.io/sign_up)
+
 2. You will receive a confirmation email. Enter your team's name and download the Xcode plugin (Dont worry, this is a separate app called Fabric.app. You wont need to open Xcode).
+
 3. Open Fabric.app and log in with your account (Important! You must keep Fabric.app open and logged in throughout the configuration process).
+
 4. Go to [this page](https://fabric.io/kits/ios/crashlytics/install) and retrieve your API KEY and BUILD SECRET for your organization in the step two. They will appear in a box in this form:
 
     ```bash
     "${PODS_ROOT}/Fabric/run" {api_key} {build_secret}
     ```
+
 5. Configure your `Rakefile` with the API KEY and BUILD SECRET:
 
     ```ruby
@@ -42,16 +59,19 @@ NOTE: If you already have a Fabric team with an API KEY and BUILD SECRET, skip t
       config.kit 'Crashlytics'
     end
     ```
+
 6. Add the following line in your AppDelegate:
 
     ```ruby
-    Fabric.with([Crashlytics.sharedInstance])
+    Fabric.with([Crashlytics])
     ``` 
+
 7. Register your app with Fabric (this will run your app in the simulator):
 
     ```
     $ rake fabric:setup
     ```
+
 8. Go to [fabric.io](https://fabric.io) and verify that your app has been created
 
 
@@ -68,7 +88,7 @@ Beta builds:
 
 ```ruby
 if RUBYMOTION_ENV == 'release' || CRASHLYTICS_BETA == true
-  Fabric.with([Crashlytics.sharedInstance]) 
+  Fabric.with([Crashlytics]) 
 end
 ```
 
@@ -140,7 +160,237 @@ NOTE: Be careful to include the group *alias* and not the group *name* in the gr
 Go to the Crashlytics Beta section of your Fabric dashboard and check that your
 build was successfully uploaded.
 
-# TwitterKit
+# Other Kits
+
+## Amazon Cognito Sync
+
+[Click here](https://fabric.io/kits/ios/amazon/install) to learn how to get your API keys.
+
+Add the following to your `Rakefile`:
+
+```ruby
+config.kit 'AWSCognitoIdentity' do |info|
+  info[:AWSCognitoIdentityPoolId] = 'MyPoolId'
+  info[:AWSCognitoIdentityRegionType] = 'MyRegionType'
+end
+
+app.pods do 
+  pod 'AWSCognito'
+end
+```
+
+And the following to your application code:
+
+```ruby
+Fabric.with([AWSCognito])
+```
+## Answers
+
+The answers SDK is already included in the Crashlytics SDK, so you simply have
+to initialize it by adding the following to your application code:
+
+```ruby
+Fabric.with([Answers])
+```
+## Appsee
+
+[Click here](https://fabric.io/kits/ios/appsee/install) to learn how to get your API keys.
+
+Add the following to your `Rakefile`:
+
+```ruby
+config.kit 'Appsee' do |info|
+  info[:apikey] = 'MyApiKey'
+end
+
+app.pods do 
+  pod 'Appsee'
+end
+```
+
+And the following to your application code:
+
+```ruby
+Fabric.with([Appsee])
+```
+## Crashlytics
+
+See the Configuration section above.
+
+## Digits
+
+[Click here](https://fabric.io/kits/ios/digits/install) to learn how to get your API keys.
+
+Add the following to your `Rakefile`:
+
+```ruby
+config.kit 'Digits' do |info|
+  info[:consumerKey] = 'MyKey'
+  info[:consumerSecret] = 'MySecret'
+end
+
+app.pods do 
+  pod 'Digits'
+end
+```
+
+And the following to your application code:
+
+```ruby
+Fabric.with([Digits])
+```
+## GameAnalytics
+
+[Click here](https://fabric.io/kits/ios/gameanalytics/install) to learn how to get your API keys.
+
+Add the following to your `Rakefile`:
+
+```ruby
+config.kit 'GameAnalytics' do |info|
+  info['api-key'] = 'MyKey'
+  info['api-secret'] = 'MySecret'
+end
+
+app.pods do 
+  pod 'GA-SDK-IOS'
+end
+```
+
+And the following to your application code:
+
+```ruby
+Fabric.with([GameAnalytics])
+```
+## Mapbox
+
+NOTE: The MapBox SDK is not currently supported
+
+[Click here](https://fabric.io/kits/ios/mapbox/install) to learn how to get your API keys.
+
+Add the following to your `Rakefile`:
+
+```ruby
+config.kit 'MGLAccountManager' do |info|
+  info[:accessToken] = 'MyToken'
+end
+
+app.pods do 
+  pod 'Mapbox-iOS-SDK'
+end
+```
+
+And the following to your application code:
+
+```ruby
+Fabric.with([MGLAccountManager])
+```
+## MoPub
+Add the following to your `Rakefile`:
+
+```ruby
+app.pods do 
+  pod 'mopub-ios-sdk'
+end
+```
+
+And the following to your application code:
+
+```ruby
+Fabric.with([MoPub])
+```
+## Nuance
+
+NOTE: The Nuance SDK is not currently supported
+
+[Click here](https://fabric.io/kits/ios/nuance/install) to learn how to get your API keys.
+
+Add the following to your `Rakefile`:
+
+```ruby
+config.kit 'SKSession' do |info|
+  info[:appKey] = 'MyKey'
+  info[:url] = 'MyURL'
+end
+
+app.pods do 
+  pod 'SpeechKit'
+end
+```
+
+And the following to your application code:
+
+```ruby
+Fabric.with([SKSession])
+```
+## Optimizely
+
+[Click here](https://fabric.io/kits/ios/optimizely/install) to learn how to get your API keys.
+
+Add the following to your `Rakefile`:
+
+```ruby
+config.kit 'Optimizely' do |info|
+  info[:socket_token] = 'MyToken'
+end
+
+app.pods do 
+  pod 'Optimizely-iOS-SDK'
+end
+```
+
+And the following to your application code:
+
+```ruby
+Fabric.with([Optimizely])
+Optimizely.startOptimizelyWithAPIToken("{api-key}", launchOptions:launchOptions)
+```
+## PubNub
+
+[Click here](https://fabric.io/kits/ios/pubnub/install) to learn how to get your API keys.
+
+Add the following to your `Rakefile`:
+
+```ruby
+config.kit 'PubNub' do |info|
+  info['publish-key'] = 'MyPublishKey'
+  info['subscribe-key'] = 'MySubscribeKey'
+  info['secret-key'] = 'MySecretKey'
+end
+
+app.pods do 
+  pod 'PubNub/Fabric'
+end
+```
+
+And the following to your application code:
+
+```ruby
+Fabric.with([PubNub])
+```
+## Stripe
+
+[Click here](https://fabric.io/kits/ios/stripe/install) to learn how to get your API keys.
+
+Add the following to your `Rakefile`:
+
+```ruby
+config.kit 'STPAPIClient' do |info|
+  info[:publishable] = 'MyPublishableAPIKey'
+end
+
+app.pods do 
+  pod 'Stripe'
+end
+```
+
+And the following to your application code:
+
+```ruby
+Fabric.with([STPAPIClient])
+```
+## Twitter
+
+[Click here](https://fabric.io/kits/ios/twitter/install) to learn how to get your API keys.
 
 Add the following to your `Rakefile`:
 
@@ -155,9 +405,6 @@ end
 app.pods do 
   pod 'TwitterKit'
 end
-
-# This is a temporary workaround for using the TwitterKit Pod
-app.framework_search_paths << './vendor/Pods/Fabric/iOS'
 ```
 
 And the following to your application code:
