@@ -89,6 +89,17 @@ Motion::Project::App.setup do |app|
     pod 'Fabric', '~> 1.6'
     pod 'Crashlytics', '~> 3.7'
   end
+
+  # FIXME: TwitterCore and TwitterKit are static ios frameworks, but the .o
+  # files inside the archives include the "-framework Fabric" flag in their
+  # auto link section information. The linker will look for that framework and
+  # fail. As a workaround we include the Fabric framework path as a framework
+  # search path. The following warning will be printed, but everything will
+  # work fine at runtime:
+  # ld: warning: Auto-Linking supplied '/Users/mark/src/motion-fabric/sample_app/vendor/Pods/Fabric/iOS/Fabric.framework/Fabric', framework linker option at /Users/mark/src/motion-fabric/sample_app/vendor/Pods/Fabric/iOS/Fabric.framework/Fabric is not a dylib
+  # We will be able to fix this when motion-cocoapods supports the
+  # "use_frameworks!" option from Cocoapods.
+  app.framework_search_paths << './vendor/Pods/Fabric/iOS'
 end
 
 def fabric_setup(&block)
