@@ -11,6 +11,16 @@ class AppDelegate
     @window.makeKeyAndVisible
 
     Fabric.with([Crashlytics])
+    Fabric.with([AWSCognito])
+    Fabric.with([Answers])
+    Fabric.with([Appsee])
+    Fabric.with([Digits])
+    Fabric.with([GameAnalytics])
+    Fabric.with([MoPub])
+    Fabric.with([Optimizely])
+    Optimizely.startOptimizelyWithAPIToken("{api-key}", launchOptions:launchOptions)
+    Fabric.with([PubNub])
+    Fabric.with([STPAPIClient])
     Fabric.with([Twitter])
 
     true

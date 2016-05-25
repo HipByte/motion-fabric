@@ -1,23 +1,68 @@
 PODS:
+  - Appsee (2.2)
+  - AWSCognito (2.4.1):
+    - AWSCore (= 2.4.1)
+  - AWSCore (2.4.1)
+  - CocoaLumberjack (2.2.0):
+    - CocoaLumberjack/Default (= 2.2.0)
+    - CocoaLumberjack/Extensions (= 2.2.0)
+  - CocoaLumberjack/Core (2.2.0)
+  - CocoaLumberjack/Default (2.2.0):
+    - CocoaLumberjack/Core
+  - CocoaLumberjack/Extensions (2.2.0):
+    - CocoaLumberjack/Default
   - Crashlytics (3.7.0):
     - Fabric (~> 1.6.3)
+  - Digits (2.0.2):
+    - TwitterCore (= 2.0.2)
   - Fabric (1.6.7)
+  - GA-SDK-IOS (2.2.0)
+  - mopub-ios-sdk (4.6.0):
+    - mopub-ios-sdk/MoPubSDK (= 4.6.0)
+  - mopub-ios-sdk/MoPubSDK (4.6.0)
+  - Optimizely-iOS-SDK (1.4.2)
+  - PubNub/Core (4.3.0):
+    - CocoaLumberjack (= 2.2.0)
+  - PubNub/Fabric (4.3.0):
+    - CocoaLumberjack (= 2.2.0)
+    - PubNub/Core
+  - Stripe (7.0.0):
+    - Stripe/Core (= 7.0.0)
+  - Stripe/Core (7.0.0)
   - TwitterCore (2.0.2):
     - Fabric
   - TwitterKit (2.0.2):
     - TwitterCore (= 2.0.2)
 
 DEPENDENCIES:
+  - Appsee
+  - AWSCognito
   - Crashlytics (~> 3.7)
+  - Digits
   - Fabric (~> 1.6)
+  - GA-SDK-IOS
+  - mopub-ios-sdk
+  - Optimizely-iOS-SDK
+  - PubNub/Fabric
+  - Stripe
   - TwitterKit
 
 SPEC CHECKSUMS:
+  Appsee: c95173e65acaab0ffc8a082c70633c9f5f45d5f0
+  AWSCognito: a57173a82505161bd1a9c8cfe393cea9b5b1f6bb
+  AWSCore: 9bfd632f04aaf12053e639d2a9120372844beb0d
+  CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
   Crashlytics: c3a2333dea9e2733d2777f730910321fc9e25c0d
+  Digits: a5c8ddfed18d5e0496e9b6f459f0bca44de588db
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
+  GA-SDK-IOS: 1e8947d3b18171b92a7c7cefb4c39d3260a89ea2
+  mopub-ios-sdk: 5e7193f1a0f9bfe6513816416117d9c28d8dcf19
+  Optimizely-iOS-SDK: 6d23c5cde187f894430d134caa15f56874754cca
+  PubNub: a05f2a2c6cc1f637a0c473f236c4671c0b8c09b1
+  Stripe: 147bbff1ba7cf3422e4ed14f6e1fbbc72471ce6c
   TwitterCore: 0f44d8980a6879d5205dcb4e010d15e643e56fa0
   TwitterKit: c4e40f289a3d7cc9fab9f241edd7502385468b65
 
-PODFILE CHECKSUM: 49295f6cac2d6a046a15ddc88109af5aae293ef3
+PODFILE CHECKSUM: f7d780fc647aa49606b7e673a333ab04e97f1ba6
 
 COCOAPODS: 1.0.0

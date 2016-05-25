@@ -16,24 +16,47 @@ Motion::Project::App.setup do |app|
     config.api_key = "api_key"
     config.build_secret = "build_secret"
     config.kit 'Crashlytics'
+    config.kit 'AWSCognitoIdentity' do |info|
+      info[:AWSCognitoIdentityPoolId] = 'MyPoolId'
+      info[:AWSCognitoIdentityRegionType] = 'MyRegionType'
+    end
+    config.kit 'Appsee' do |info|
+      info[:apikey] = 'MyApiKey'
+    end
+    config.kit 'Digits' do |info|
+      info[:consumerKey] = 'MyKey'
+      info[:consumerSecret] = 'MySecret'
+    end
+    config.kit 'GameAnalytics' do |info|
+      info['api-key'] = 'MyKey'
+      info['api-secret'] = 'MySecret'
+    end
+    config.kit 'Optimizely' do |info|
+      info[:socket_token] = 'MyToken'
+    end
+    config.kit 'PubNub' do |info|
+      info['publish-key'] = 'MyPublishKey'
+      info['subscribe-key'] = 'MySubscribeKey'
+      info['secret-key'] = 'MySecretKey'
+    end
+    config.kit 'STPAPIClient' do |info|
+      info[:publishable] = 'MyPublishableAPIKey'
+    end
     config.kit 'TwitterKit' do |info|
       info[:consumerKey] = 'MyKey'
       info[:consumerSecret] = 'MySecret'
     end
   end
 
-  # FIXME: TwitterCore and TwitterKit are static ios frameworks, but the .o 
-  # files inside the archives include the "-framework Fabric" flag in their
-  # auto link section information. The linker will look for that framework and
-  # fail. As a workaround we include the Fabric framework path as a framework
-  # search path. The following warning will be printed, but everything will 
-  # work fine at runtime:
-  # ld: warning: Auto-Linking supplied '/Users/mark/src/motion-fabric/sample_app/vendor/Pods/Fabric/iOS/Fabric.framework/Fabric', framework linker option at /Users/mark/src/motion-fabric/sample_app/vendor/Pods/Fabric/iOS/Fabric.framework/Fabric is not a dylib
-  # We will be able to fix this when motion-cocoapods supports the 
-  # "use_frameworks!" option from Cocoapods.
-  app.framework_search_paths << './vendor/Pods/Fabric/iOS'
-
   app.pods do 
+    pod 'AWSCognito'
+    pod 'Appsee'
+    pod 'Digits'
+    pod 'GA-SDK-IOS'
+    pod 'mopub-ios-sdk'
+    pod 'Optimizely-iOS-SDK'
+    pod 'PubNub/Fabric'
+    pod 'Stripe'
     pod 'TwitterKit'
   end
 end
