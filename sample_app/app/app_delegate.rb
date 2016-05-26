@@ -10,18 +10,19 @@ class AppDelegate
     @window.rootViewController = navigationController
     @window.makeKeyAndVisible
 
-    Fabric.with([Crashlytics])
-    Fabric.with([AWSCognito])
-    Fabric.with([Answers])
-    Fabric.with([Appsee])
-    Fabric.with([Digits])
-    Fabric.with([GameAnalytics])
-    Fabric.with([MoPub])
-    Fabric.with([Optimizely])
-    Optimizely.startOptimizelyWithAPIToken("{api-key}", launchOptions:launchOptions)
-    Fabric.with([PubNub])
-    Fabric.with([STPAPIClient])
-    Fabric.with([Twitter])
+    Fabric.with([
+      Crashlytics,
+      AWSCognito,
+      Answers,
+      Appsee,
+      Digits,
+      GameAnalytics,
+      MoPub,
+      Optimizely,
+      PubNub,
+      STPAPIClient,
+      Twitter,
+    ])
 
     true
   end

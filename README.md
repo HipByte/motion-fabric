@@ -396,7 +396,7 @@ Add the following to your `Rakefile`:
 
 ```ruby
 app.fabric do |config|
-  config.kit 'TwitterKit' do |info|
+  config.kit 'Twitter' do |info|
     info[:consumerKey] = 'MyKey'
     info[:consumerSecret] = 'MySecret'
   end

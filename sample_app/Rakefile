@@ -42,7 +42,7 @@ Motion::Project::App.setup do |app|
     config.kit 'STPAPIClient' do |info|
       info[:publishable] = 'MyPublishableAPIKey'
     end
-    config.kit 'TwitterKit' do |info|
+    config.kit 'Twitter' do |info|
       info[:consumerKey] = 'MyKey'
       info[:consumerSecret] = 'MySecret'
     end
