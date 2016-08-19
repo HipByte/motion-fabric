@@ -100,6 +100,8 @@ Motion::Project::App.setup do |app|
   # We will be able to fix this when motion-cocoapods supports the
   # "use_frameworks!" option from Cocoapods.
   app.framework_search_paths << './vendor/Pods/Fabric/iOS'
+  app.framework_search_paths << './vendor/Pods/Fabric/tvOS'
+  app.framework_search_paths << './vendor/Pods/Fabric/OSX'
 end
 
 def fabric_setup(&block)
