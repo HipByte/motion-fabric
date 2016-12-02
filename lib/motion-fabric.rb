@@ -26,6 +26,9 @@
 unless defined?(Motion::Project::Config)
   raise "This file must be required within a RubyMotion project Rakefile."
 end
+def osx?
+  App.template == :osx
+end
 
 require 'motion-cocoapods'
 
@@ -90,18 +93,28 @@ Motion::Project::App.setup do |app|
     pod 'Crashlytics', '~> 3.7'
   end
 
-  # FIXME: TwitterCore and TwitterKit are static ios frameworks, but the .o
-  # files inside the archives include the "-framework Fabric" flag in their
-  # auto link section information. The linker will look for that framework and
-  # fail. As a workaround we include the Fabric framework path as a framework
-  # search path. The following warning will be printed, but everything will
-  # work fine at runtime:
-  # ld: warning: Auto-Linking supplied '/Users/mark/src/motion-fabric/sample_app/vendor/Pods/Fabric/iOS/Fabric.framework/Fabric', framework linker option at /Users/mark/src/motion-fabric/sample_app/vendor/Pods/Fabric/iOS/Fabric.framework/Fabric is not a dylib
-  # We will be able to fix this when motion-cocoapods supports the
-  # "use_frameworks!" option from Cocoapods.
-  app.framework_search_paths << './vendor/Pods/Fabric/iOS'
-  app.framework_search_paths << './vendor/Pods/Fabric/tvOS'
-  app.framework_search_paths << './vendor/Pods/Fabric/OSX'
+  if osx?
+    # staticlly link the frameworks
+    app.vendor_project('./vendor/Pods/Fabric/OSX/Fabric.framework', :static, products: ['Fabric'])
+    app.vendor_project('./vendor/Pods/Crashlytics/OSX/Crashlytics.framework', :static, products: ['Crashlytics'])
+
+    # make sure they are not copied into the Frameworks folder
+    app.embedded_frameworks.delete_if {|item| item.to_s.include?('Fabric.framework')}
+    app.embedded_frameworks.delete_if {|item| item.to_s.include?('Crashlytics.framework')}
+  else
+    # FIXME: TwitterCore and TwitterKit are static ios frameworks, but the .o
+    # files inside the archives include the "-framework Fabric" flag in their
+    # auto link section information. The linker will look for that framework and
+    # fail. As a workaround we include the Fabric framework path as a framework
+    # search path. The following warning will be printed, but everything will
+    # work fine at runtime:
+    # ld: warning: Auto-Linking supplied '/Users/mark/src/motion-fabric/sample_app/vendor/Pods/Fabric/iOS/Fabric.framework/Fabric', framework linker option at /Users/mark/src/motion-fabric/sample_app/vendor/Pods/Fabric/iOS/Fabric.framework/Fabric is not a dylib
+    # We will be able to fix this when motion-cocoapods supports the
+    # "use_frameworks!" option from Cocoapods.
+    app.framework_search_paths << './vendor/Pods/Fabric/iOS'
+    app.framework_search_paths << './vendor/Pods/Fabric/tvOS'
+    app.framework_search_paths << './vendor/Pods/Fabric/OSX'
+  end
 end
 
 def fabric_setup(&block)
@@ -120,7 +133,7 @@ def fabric_run(platform)
   project_dir = File.expand_path(App.config.project_dir)
   env = {
     BUILT_PRODUCTS_DIR: File.expand_path(File.join(App.config.versionized_build_dir(platform), App.config.bundle_filename)),
-    INFOPLIST_PATH: 'Info.plist',
+    INFOPLIST_PATH: osx? ? 'Contents/Info.plist' : 'Info.plist',
     DWARF_DSYM_FILE_NAME: File.basename(dsym_path),
     DWARF_DSYM_FOLDER_PATH: File.expand_path(File.dirname(dsym_path)),
     PROJECT_DIR: project_dir,
@@ -139,14 +152,23 @@ end
 namespace :fabric do
   desc 'Create a new app in Fabric'
   task :setup do
-    # Build for the simulator so we generate the data needed by the "run" tool
-    Rake::Task["build:simulator"].execute
+    if osx?
+      # Build release in case app_name or identifier is overridden for development builds
+      Rake::Task["build:release"].execute
+    else
+      # Build for the simulator so we generate the data needed by the "run" tool
+      Rake::Task["build:simulator"].execute
+    end
     # Execute the "run" tool so Fabric.app registers our app
     Rake::Task["fabric:dsym:simulator"].execute
     # Do not build again
     ENV["skip_build"] = 'true'
     # Run the app in the simulator so Fabric activates our app
-    Rake::Task["simulator"].execute
+    if osx?
+      Rake::Task["run"].execute
+    else
+      Rake::Task["simulator"].execute
+    end
   end
 
   desc 'Upload a build to Crashlytics'
