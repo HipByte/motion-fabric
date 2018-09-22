@@ -140,12 +140,22 @@ def fabric_run(platform)
     SRCROOT: project_dir,
     PLATFORM_NAME: platform.downcase,
     PROJECT_FILE_PATH: "",
-    CONFIGURATION: App.config_mode ==  'development' ? 'debug' : 'release',
+    CONFIGURATION: App.config_mode == :development ? 'debug' : 'release',
   }
   env_string = env.map { |k,v| "#{k}='#{v}'" }.join(' ')
   fabric_setup do |pods_root, api_key, build_secret|
     App.info "Fabric", "Uploading .dSYM file"
-    system("env #{env_string} sh #{pods_root}/Fabric/run #{api_key} #{build_secret}")
+    if App.config_mode == :development
+      generic_platform = case platform
+        when 'iPhoneSimulator', 'iPhoneOS'   then 'ios'
+        when 'AppleTVSimulator', 'AppleTVOS' then 'tvos'
+        when 'MacOSX'                        then 'mac'
+      end
+      system("#{pods_root}/Fabric/upload-symbols -a #{api_key} -p #{generic_platform} '#{dsym_path}'")
+    else
+      # NOTE: not sure if Fabric/run is better for release builds. Going to leave it like this for now.
+      system("env #{env_string} sh #{pods_root}/Fabric/run #{api_key} #{build_secret}")
+    end
   end
 end
 
