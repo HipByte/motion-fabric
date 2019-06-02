@@ -61,3 +61,17 @@ Motion::Project::App.setup do |app|
     # pod 'TwitterKit'
   end
 end
+
+
+# Temporary note:
+# TODO when trying to compile, I get the error
+#   Errno::ENOENT: No such file or directory @ rb_file_s_mtime - GA-SDK-IOS/GameAnalytics.framework/Resources
+#
+# This is because there is no `Resources` direcotry, even thought 'GA-SDK-IOS/GameAnalytics.framework/Resources'
+# symlinks to it.  So a `File.mtime(x)` fails.
+#
+# Change the file `/Library/RubyMotion/lib/motion/project/vendor.rb`, line `188` to read
+#   if !File.exist?(build_dir) or Dir.glob('**/*').sort.any? { |x| File.exists?(x) && File.mtime(x) > File.mtime(build_dir) }
+#
+# Currently unable to submit a PR to rubymotion since https://github.com/HipByte/RubyMotion seems
+# to be defunct
