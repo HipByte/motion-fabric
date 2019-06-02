@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 $:.unshift("/Library/RubyMotion/lib")
+$:.unshift("~/.rubymotion/rubymotion-templates")
 require 'motion/project/template/ios'
 
 begin
@@ -23,10 +24,10 @@ Motion::Project::App.setup do |app|
     config.kit 'Appsee' do |info|
       info[:apikey] = 'MyApiKey'
     end
-    config.kit 'Digits' do |info|
-      info[:consumerKey] = 'MyKey'
-      info[:consumerSecret] = 'MySecret'
-    end
+    # config.kit 'Digits' do |info|
+    #   info[:consumerKey] = 'MyKey'
+    #   info[:consumerSecret] = 'MySecret'
+    # end
     config.kit 'GameAnalytics' do |info|
       info['api-key'] = 'MyKey'
       info['api-secret'] = 'MySecret'
@@ -42,21 +43,21 @@ Motion::Project::App.setup do |app|
     config.kit 'STPAPIClient' do |info|
       info[:publishable] = 'MyPublishableAPIKey'
     end
-    config.kit 'Twitter' do |info|
-      info[:consumerKey] = 'MyKey'
-      info[:consumerSecret] = 'MySecret'
-    end
+    # config.kit 'Twitter' do |info|
+    #   info[:consumerKey] = 'MyKey'
+    #   info[:consumerSecret] = 'MySecret'
+    # end
   end
 
-  app.pods do 
+  app.pods do
     pod 'AWSCognito'
     pod 'Appsee'
-    pod 'Digits'
+    # pod 'Digits'
     pod 'GA-SDK-IOS'
     pod 'mopub-ios-sdk'
     pod 'Optimizely-iOS-SDK'
     pod 'PubNub/Fabric'
     pod 'Stripe'
-    pod 'TwitterKit'
+    # pod 'TwitterKit'
   end
 end

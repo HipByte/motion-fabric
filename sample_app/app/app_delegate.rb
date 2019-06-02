@@ -10,18 +10,20 @@ class AppDelegate
     @window.rootViewController = navigationController
     @window.makeKeyAndVisible
 
+    Appsee.setDelegate(self)
+
     Fabric.with([
       Crashlytics,
       AWSCognito,
       Answers,
       Appsee,
-      Digits,
+      # Digits,
       GameAnalytics,
       MoPub,
       Optimizely,
       PubNub,
       STPAPIClient,
-      Twitter,
+      # Twitter,
     ])
 
     true
