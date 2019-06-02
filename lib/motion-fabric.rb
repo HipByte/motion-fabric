@@ -215,3 +215,38 @@ namespace :fabric do
     end
   end
 end
+
+# For some reason, the Crashlytics and Fabric frameworks come with exectuables
+# in the actual Framework folder.  The framework cannot be signed properly on macOS.
+# So before signing, remove those extra files.
+module Motion::Project
+  class Builder
+    def codesign_with_fabric(config, platform)
+      if osx?
+        bundle_path = App.config.app_bundle('MacOSX')
+        if App.config.embedded_frameworks.any? {|item| item.to_s.include?('Crashlytics.framework')}
+          App.info 'Crashlytics', 'Fixing codesigning...'
+          fabric_path = File.join(bundle_path, "Frameworks/Crashlytics.framework")
+          ['run', 'submit', 'upload-symbols', 'uploadDSYM'].each do |item|
+            bundle = File.join(fabric_path, item)
+            FileUtils.rm(bundle) if File.file?(bundle)
+          end
+        end
+
+        if App.config.embedded_frameworks.any? {|item| item.to_s.include?('Fabric.framework')}
+          App.info 'Fabric', 'Fixing codesigning...'
+          fabric_path = File.join(bundle_path, "Frameworks/Fabric.framework")
+          ['run', 'upload-symbols', 'uploadDSYM'].each do |item|
+            bundle = File.join(fabric_path, item)
+            FileUtils.rm(bundle) if File.file?(bundle)
+          end
+        end
+      end
+
+      codesign_without_fabric(config, platform)
+    end
+
+    alias_method "codesign_without_fabric", "codesign"
+    alias_method "codesign", "codesign_with_fabric"
+  end
+end
