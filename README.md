@@ -2,6 +2,14 @@
 
 Easily integrate [Fabric](https://fabric.io) in your [RubyMotion](http://www.rubymotion.com) application.
 
+**Note:** _In Jan 2017, Google acquired Fabric.  Their current [roadmap](https://get.fabric.io/roadmap) indicates that Fabric will go out of service on March 31, 2020.  By that time, developers would need to migrate to [Google's Firebase](https://get.fabric.io/roadmap#meet-firebase) platform._
+
+_Already, support for [3rd party kits](https://docs.fabric.io/apple/third-party-kits.html) for new applications has been removed:_
+
+> _Fabric has deprecated the third party kits as of August 2, 2018. As of this date, you will not be able to onboard new third party kits via Fabric to your apps_
+
+_We continue to mention the kits below for those that might be currently using them._
+
 Supported [Fabric kits](https://fabric.io/kits):
 
 Kit Name | Description | Supported?
@@ -29,11 +37,11 @@ Add this line to your application's Gemfile:
 And then execute:
 
     $ bundle
-    
+
 To install the required Pods execute:
 
     $ rake pod:install
-    
+
 ## Configuration
 
 NOTE: If you already have a Fabric team with an API KEY and BUILD SECRET, skip to step 5.
@@ -64,7 +72,7 @@ NOTE: If you already have a Fabric team with an API KEY and BUILD SECRET, skip t
 
     ```ruby
     Fabric.with([Crashlytics])
-    ``` 
+    ```
 
 7. Register your app with Fabric (this will run your app in the simulator):
 
@@ -83,12 +91,12 @@ This file is called the `dSYM` file and is generated every time you build the ap
 
 By default `motion-fabric` does NOT upload any `dSYM` file.
 
-Usually, you only want crash reporting for your distribution and Crashlytics 
+Usually, you only want crash reporting for your distribution and Crashlytics
 Beta builds:
 
 ```ruby
 if RUBYMOTION_ENV == 'release' || CRASHLYTICS_BETA == true
-  Fabric.with([Crashlytics]) 
+  Fabric.with([Crashlytics])
 end
 ```
 
@@ -174,7 +182,7 @@ config.kit 'AWSCognitoIdentity' do |info|
   info[:AWSCognitoIdentityRegionType] = 'MyRegionType'
 end
 
-app.pods do 
+app.pods do
   pod 'AWSCognito'
 end
 ```
@@ -203,7 +211,7 @@ config.kit 'Appsee' do |info|
   info[:apikey] = 'MyApiKey'
 end
 
-app.pods do 
+app.pods do
   pod 'Appsee'
 end
 ```
@@ -229,7 +237,7 @@ config.kit 'Digits' do |info|
   info[:consumerSecret] = 'MySecret'
 end
 
-app.pods do 
+app.pods do
   pod 'Digits'
 end
 ```
@@ -251,7 +259,7 @@ config.kit 'GameAnalytics' do |info|
   info['api-secret'] = 'MySecret'
 end
 
-app.pods do 
+app.pods do
   pod 'GA-SDK-IOS'
 end
 ```
@@ -274,7 +282,7 @@ config.kit 'MGLAccountManager' do |info|
   info[:accessToken] = 'MyToken'
 end
 
-app.pods do 
+app.pods do
   pod 'Mapbox-iOS-SDK'
 end
 ```
@@ -288,7 +296,7 @@ Fabric.with([MGLAccountManager])
 Add the following to your `Rakefile`:
 
 ```ruby
-app.pods do 
+app.pods do
   pod 'mopub-ios-sdk'
 end
 ```
@@ -312,7 +320,7 @@ config.kit 'SKSession' do |info|
   info[:url] = 'MyURL'
 end
 
-app.pods do 
+app.pods do
   pod 'SpeechKit'
 end
 ```
@@ -333,7 +341,7 @@ config.kit 'Optimizely' do |info|
   info[:socket_token] = 'MyToken'
 end
 
-app.pods do 
+app.pods do
   pod 'Optimizely-iOS-SDK'
 end
 ```
@@ -357,7 +365,7 @@ config.kit 'PubNub' do |info|
   info['secret-key'] = 'MySecretKey'
 end
 
-app.pods do 
+app.pods do
   pod 'PubNub/Fabric'
 end
 ```
@@ -378,7 +386,7 @@ config.kit 'STPAPIClient' do |info|
   info[:publishable] = 'MyPublishableAPIKey'
 end
 
-app.pods do 
+app.pods do
   pod 'Stripe'
 end
 ```
@@ -402,7 +410,7 @@ app.fabric do |config|
   end
 end
 
-app.pods do 
+app.pods do
   pod 'TwitterKit'
 end
 ```

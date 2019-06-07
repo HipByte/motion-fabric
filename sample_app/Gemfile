@@ -4,5 +4,3 @@ gem 'rake'
 # Add your dependencies here:
 
 gem 'motion-fabric', path: '../'
-
-gem 'pry'

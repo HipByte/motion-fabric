@@ -1,65 +1,21 @@
 PODS:
-  - Appsee (2.6.2)
-  - AWSCognito (2.9.8):
-    - AWSCore (= 2.9.8)
-  - AWSCore (2.9.8)
   - Crashlytics (3.13.1):
     - Fabric (~> 1.10.1)
   - Fabric (1.10.1)
-  - GA-SDK-IOS (3.2.1)
-  - mopub-ios-sdk (5.7.0):
-    - mopub-ios-sdk/MoPubSDK (= 5.7.0)
-  - mopub-ios-sdk/Avid (5.7.0):
-    - mopub-ios-sdk/Core
-  - mopub-ios-sdk/Core (5.7.0)
-  - mopub-ios-sdk/Moat (5.7.0):
-    - mopub-ios-sdk/Core
-  - mopub-ios-sdk/MoPubSDK (5.7.0):
-    - mopub-ios-sdk/Avid
-    - mopub-ios-sdk/Core
-    - mopub-ios-sdk/Moat
-  - Optimizely-iOS-SDK (1.7.0)
-  - PubNub/Core (4.8.7)
-  - PubNub/Fabric (4.8.7):
-    - PubNub/Core
-  - Stripe (15.0.1)
 
 DEPENDENCIES:
-  - Appsee
-  - AWSCognito
   - Crashlytics (~> 3.7)
   - Fabric (~> 1.6)
-  - GA-SDK-IOS
-  - mopub-ios-sdk
-  - Optimizely-iOS-SDK
-  - PubNub/Fabric
-  - Stripe
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - Appsee
-    - AWSCognito
-    - AWSCore
     - Crashlytics
     - Fabric
-    - GA-SDK-IOS
-    - mopub-ios-sdk
-    - Optimizely-iOS-SDK
-    - PubNub
-    - Stripe
 
 SPEC CHECKSUMS:
-  Appsee: 5e0828d5febee79231db4d9cc1eb420f9257223e
-  AWSCognito: b9890c55e85fba46fd9695192ab64420abbc4328
-  AWSCore: 5da86c5afde44a87b06a2df50601bca81a8cee13
   Crashlytics: 5aa8e90dcbf2f34898b4f5a0037787531246cca0
   Fabric: f6f21452846788bb44595d73e9909d79d328e617
-  GA-SDK-IOS: ce8d43acbf761176480805ad10c0105bc7890199
-  mopub-ios-sdk: e5074eb28a332957df8ebc1b26d42c691a5d7ed2
-  Optimizely-iOS-SDK: e406016e617f84e823227c52131341dc20721319
-  PubNub: c767e96befde348b990b2fed1e9e76048e7c0abd
-  Stripe: 2c4d0a88817361a102886315ff452d90f65e898b
 
-PODFILE CHECKSUM: 8da854abfadfc1989dc3554cdf7c4eaaa7a61f2a
+PODFILE CHECKSUM: 772ad14386990573ce557fea3fbef2651a4dee51
 
 COCOAPODS: 1.7.1

@@ -1,7 +1,7 @@
 class AppDelegate
   def application(application, didFinishLaunchingWithOptions:launchOptions)
     rootViewController = UIViewController.alloc.init
-    rootViewController.title = 'example'
+    rootViewController.title = 'sample_app'
     rootViewController.view.backgroundColor = UIColor.whiteColor
 
     navigationController = UINavigationController.alloc.initWithRootViewController(rootViewController)
@@ -10,21 +10,7 @@ class AppDelegate
     @window.rootViewController = navigationController
     @window.makeKeyAndVisible
 
-    Appsee.setDelegate(self)
-
-    Fabric.with([
-      Crashlytics,
-      AWSCognito,
-      Answers,
-      Appsee,
-      # Digits,
-      GameAnalytics,
-      MoPub,
-      Optimizely,
-      PubNub,
-      STPAPIClient,
-      # Twitter,
-    ])
+    Fabric.with([Crashlytics])
 
     true
   end
