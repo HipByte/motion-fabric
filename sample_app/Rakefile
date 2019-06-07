@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 $:.unshift("/Library/RubyMotion/lib")
+$:.unshift("~/.rubymotion/rubymotion-templates")
+
 require 'motion/project/template/ios'
 
 begin
@@ -9,54 +11,44 @@ rescue LoadError
 end
 
 Motion::Project::App.setup do |app|
-  # Use `rake config' to see complete project settings.
+  define_icon_defaults!(app)
+
   app.name = 'sample-app'
+  app.version = '1.0'
+
+  app.device_family = [:iphone, :ipad]
+  app.interface_orientations = [:portrait]
+  app.info_plist['UIRequiresFullScreen'] = true
+  app.info_plist['ITSAppUsesNonExemptEncryption'] = false
 
   app.fabric do |config|
     config.api_key = "api_key"
     config.build_secret = "build_secret"
     config.kit 'Crashlytics'
-    config.kit 'AWSCognitoIdentity' do |info|
-      info[:AWSCognitoIdentityPoolId] = 'MyPoolId'
-      info[:AWSCognitoIdentityRegionType] = 'MyRegionType'
-    end
-    config.kit 'Appsee' do |info|
-      info[:apikey] = 'MyApiKey'
-    end
-    config.kit 'Digits' do |info|
-      info[:consumerKey] = 'MyKey'
-      info[:consumerSecret] = 'MySecret'
-    end
-    config.kit 'GameAnalytics' do |info|
-      info['api-key'] = 'MyKey'
-      info['api-secret'] = 'MySecret'
-    end
-    config.kit 'Optimizely' do |info|
-      info[:socket_token] = 'MyToken'
-    end
-    config.kit 'PubNub' do |info|
-      info['publish-key'] = 'MyPublishKey'
-      info['subscribe-key'] = 'MySubscribeKey'
-      info['secret-key'] = 'MySecretKey'
-    end
-    config.kit 'STPAPIClient' do |info|
-      info[:publishable] = 'MyPublishableAPIKey'
-    end
-    config.kit 'Twitter' do |info|
-      info[:consumerKey] = 'MyKey'
-      info[:consumerSecret] = 'MySecret'
-    end
-  end
 
-  app.pods do 
-    pod 'AWSCognito'
-    pod 'Appsee'
-    pod 'Digits'
-    pod 'GA-SDK-IOS'
-    pod 'mopub-ios-sdk'
-    pod 'Optimizely-iOS-SDK'
-    pod 'PubNub/Fabric'
-    pod 'Stripe'
-    pod 'TwitterKit'
+    # Fabric has deprecated the third party kits as of August 2, 2018.
+    # As of this date, you will not be able to onboard new third party
+    # kits via Fabric to your apps
+    # https://docs.fabric.io/apple/third-party-kits.html
   end
+end
+
+def define_icon_defaults!(app)
+  # This is required as of iOS 11.0 (you must use asset catalogs to
+  # define icons or your app will be rejected. More information in
+  # located in the readme.
+
+  app.info_plist['CFBundleIcons'] = {
+    'CFBundlePrimaryIcon' => {
+      'CFBundleIconName' => 'AppIcon',
+      'CFBundleIconFiles' => ['AppIcon60x60']
+    }
+  }
+
+  app.info_plist['CFBundleIcons~ipad'] = {
+    'CFBundlePrimaryIcon' => {
+      'CFBundleIconName' => 'AppIcon',
+      'CFBundleIconFiles' => ['AppIcon60x60', 'AppIcon76x76']
+    }
+  }
 end
