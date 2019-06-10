@@ -89,8 +89,9 @@ require 'motion-cocoapods'
 
 Motion::Project::App.setup do |app|
   app.pods do
-    pod 'Fabric', '~> 1.6'
-    pod 'Crashlytics', '~> 3.7'
+    use_frameworks!
+    pod 'Fabric', '~> 1.10.1'
+    pod 'Crashlytics', '~> 3.13.1'
   end
 
   if osx?

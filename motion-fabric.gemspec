@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name        = 'motion-fabric'
-  spec.version     = '0.7'
+  spec.version     = '1.0.1'
   spec.description = 'Fabric in your RubyMotion applications.'
   spec.summary     = 'motion-fabric allows you to easily integrate Fabric 
                       in your RubyMotion applications.'
@@ -12,5 +12,5 @@ Gem::Specification.new do |spec|
   spec.license     = 'Proprietary'
   spec.files       = Dir.glob('lib/**/*.rb')
 
-  spec.add_runtime_dependency 'motion-cocoapods', '~> 1.8'
+  spec.add_runtime_dependency 'motion-cocoapods', '~> 1.9.1'
 end
