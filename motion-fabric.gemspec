@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name        = 'motion-fabric'
-  spec.version     = '1.0.1'
+  spec.version     = '1.0.2'
   spec.description = 'Fabric in your RubyMotion applications.'
   spec.summary     = 'motion-fabric allows you to easily integrate Fabric 
                       in your RubyMotion applications.'
