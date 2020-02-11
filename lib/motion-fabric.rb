@@ -89,8 +89,8 @@ require 'motion-cocoapods'
 
 Motion::Project::App.setup do |app|
   app.pods do
-    pod 'Fabric', '~> 1.6'
-    pod 'Crashlytics', '~> 3.7'
+    pod 'Fabric', '~> 1.10.2'
+    pod 'Crashlytics', '~> 3.14.0'
   end
 
   if osx?
@@ -140,12 +140,12 @@ def fabric_run(platform)
     SRCROOT: project_dir,
     PLATFORM_NAME: platform.downcase,
     PROJECT_FILE_PATH: "",
-    CONFIGURATION: App.config_mode ==  'development' ? 'debug' : 'release',
+    CONFIGURATION: App.config_mode ==  :development ? 'debug' : 'release',
   }
   env_string = env.map { |k,v| "#{k}='#{v}'" }.join(' ')
   fabric_setup do |pods_root, api_key, build_secret|
     App.info "Fabric", "Uploading .dSYM file"
-    system("env #{env_string} sh #{pods_root}/Fabric/run #{api_key} #{build_secret}")
+    system("env #{env_string} sh #{pods_root}/Crashlytics/iOS/Crashlytics.framework/run #{api_key} #{build_secret}")
   end
 end
 
